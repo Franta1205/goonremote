@@ -17,7 +17,7 @@
         </div>
       </div>
     </div>
-    <div class="pr-8 lg:block p-8 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 mr-4 lg:mr-8"> <!-- Adjusted Margin -->
+    <div class="lg:block hidden pr-8 lg:block p-8 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 mr-4 lg:mr-8"> <!-- Adjusted Margin -->
       <div class="flex items-center mb-4">
         <% if @job.company.logo.present? %>
           <%= image_tag @job.company.logo, class: "h-12 w-12 rounded-full" %>
@@ -81,6 +81,9 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="fixed inset-x-0 bottom-0 lg:hidden bg-blue-500 text-white text-center py-3">
+    <a href="<%= @job.apply_link %>" class="w-full block px-4 py-2 text-center text-white hover:bg-blue-600 rounded-lg" target="_blank">Apply Now</a>
   </div>
 </div>
 
