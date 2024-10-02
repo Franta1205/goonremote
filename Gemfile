@@ -80,3 +80,5 @@ gem "standard", "~> 1.40"
 gem "faker", "~> 3.4"
 
 gem "trix", "~> 0.10.1"
+
+gem "pagy", "~> 9.0"

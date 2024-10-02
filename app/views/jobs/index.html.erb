@@ -7,3 +7,9 @@
   <%= render "jobs/partials/filters" %>
   <%= render "jobs/partials/table", locals: { jobs: @jobs } %>
 </div>
+
+<%= custom_pagy_nav(@pagy) %>
+
+<div class="pb-8">
+
+</div>

@@ -4,7 +4,9 @@ class JobsController < ApplicationController
   before_action :set_company, only: %i[new edit create]
 
   def index
-    @jobs = Job.all
+    @jobs = Job.all.order(created_at: :desc)
+
+    @pagy, @jobs = pagy(@jobs)
   end
 
   def show
