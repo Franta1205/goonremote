@@ -1,0 +1,166 @@
+
+<%= form_with(model: @job, local: true, class: "max-w-2xl mx-auto") do |f| %>
+  <% if @job.errors.any? %>
+    <div class="bg-gray-900 text-red-500 p-4 rounded-md mb-4 border border-red-500">
+      <h2 class="font-bold">Please fix the following errors:</h2>
+      <ul class="list-disc list-inside">
+        <% @job.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <%= hidden_field_tag :company_id, @company.id %>
+
+
+  <div class="space-y-12">
+    <div class="border-b border-white/10 pb-12">
+      <h2 class="text-base font-semibold leading-7 text-white">Your Companies</h2>
+
+      <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        <!-- Title Field -->
+        <div class="sm:col-span-4">
+          <%= f.label :title, "Title *", class:"block text-sm font-medium leading-6 text-white"%>
+          <div class="mt-2">
+            <div class="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+              <%= f.text_field :title, class:"flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6"%>
+            </div>
+          </div>
+        </div>
+
+        <!-- Apply Link Field -->
+        <div class="sm:col-span-4">
+          <%= f.label :apply_link, "Apply link *", class:"block text-sm font-medium leading-6 text-white"%>
+          <div class="mt-2">
+            <div class="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+              <%= f.text_field :apply_link, class:"flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6"%>
+            </div>
+          </div>
+        </div>
+
+        <!-- Description Field -->
+        <div class="col-span-full">
+          <%= f.label :description, "Description *", class:"block text-sm font-medium leading-6 text-white"%>
+          <div class="mt-2">
+            <%= f.hidden_field :description, id: "description-content" %>
+            <trix-editor input="description-content" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"></trix-editor>
+          </div>
+        </div>
+
+        <!-- Currency Field as Dropdown -->
+        <div class="sm:col-span-2">
+          <%= f.label :currency, "Currency", class:"block text-sm font-medium leading-6 text-white"%>
+          <div class="mt-2">
+            <div class="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+              <%= f.select :currency, options_for_select([['$', 'usd'], ['€', 'eur'], ['£', 'gbp'], ['¥', 'jpy'], ['A$', 'aud'], ['C$', 'cad']]), {}, class: "flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6" %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Salary Min Field -->
+        <div class="sm:col-span-2">
+          <%= f.label :salary_min, "Salary Min", class:"block text-sm font-medium leading-6 text-white"%>
+          <div class="mt-2">
+            <div class="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+              <%= f.number_field :salary_min, class:"flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6"%>
+            </div>
+          </div>
+        </div>
+
+        <!-- Salary Max Field -->
+        <div class="sm:col-span-2">
+          <%= f.label :salary_max, "Salary Max", class:"block text-sm font-medium leading-6 text-white"%>
+          <div class="mt-2">
+            <div class="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+              <%= f.number_field :salary_max, class:"flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6"%>
+            </div>
+          </div>
+        </div>
+
+        <!-- Salary Period Field as Dropdown -->
+        <div class="sm:col-span-2">
+          <%= f.label :salary_period, "Salary Period", class:"block text-sm font-medium leading-6 text-white"%>
+          <div class="mt-2">
+            <div class="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+              <%= f.select :salary_period, options_for_select([['Hourly', 'hourly'], ['Daily', 'daily'], ['Weekly', 'weekly'], ['Monthly', 'monthly'], ['Yearly', 'yearly']]), {}, class: "flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
+          <%= f.label :experience, "Experience", class:"block text-sm font-medium leading-6 text-white"%>
+          <div class="mt-2">
+            <div class="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+              <%= f.select :experience, options_for_select([['Any', 'any'], ['Junior', 'junior'], ['Medior', 'medior'], ['Senior', 'senior']]), {}, class: "flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
+          <%= f.label :employment_type, "Employment type", class:"block text-sm font-medium leading-6 text-white"%>
+          <div class="mt-2">
+            <div class="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+              <%= f.select :employment_type, options_for_select([['Full-time', 'full_time'], ['Part-time', 'part_time'], ['Internship', 'internship']]), {}, class: "flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6" %>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-6 flex items-center justify-end gap-x-6">
+    <%= f.submit "Save", class:"rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"%>
+  </div>
+<% end %>
+
+<script>
+  document.addEventListener('trix-initialize', () => {
+  // Remove the file attachment button
+  const fileUploadButton = document.querySelector('button.trix-button--icon-attach');
+  if (fileUploadButton) {
+    fileUploadButton.remove();
+  }
+
+    // Remove all separators (vertical lines)
+  const separators = document.querySelectorAll('.trix-button-group--file-tools, .trix-button-group--history-tools');
+  separators.forEach(separator => separator.remove());
+
+  // If there's an extra separator at the end, remove it
+  const extraSeparators = document.querySelectorAll('.trix-button-group--text-tools ~ span');
+  extraSeparators.forEach(separator => separator.remove());
+
+  // Remove the undo and redo buttons
+  const undoButton = document.querySelector('button.trix-button--icon-undo');
+  const redoButton = document.querySelector('button.trix-button--icon-redo');
+  
+  if (undoButton) {
+    undoButton.remove();
+  }
+  
+  if (redoButton) {
+    redoButton.remove();
+  }
+
+const textButtons = document.querySelectorAll('button.trix-button');
+textButtons.forEach(button => {
+  button.classList.add(
+    'bg-gray-800',          // Background color that contrasts with gray-900
+    'text-white',           // Text color remains white
+    'hover:bg-gray-700',    // Darker hover effect for better visibility
+    'rounded-md',           // Rounded corners for a modern look
+    'p-2',                  // Padding for better spacing
+    'transition',           // Smooth transition on hover
+    'duration-150',         // Duration of transition effect
+    'ease-in-out',          // Easing for smooth effect
+    'focus:outline-none',    // Remove default outline on focus
+    'focus:ring-2',         // Add a ring on focus for accessibility
+    'focus:ring-indigo-500'  // Ring color for focus
+  );
+});
+
+
+});
+</script>
+
