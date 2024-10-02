@@ -39,6 +39,8 @@ class CompaniesController < ApplicationController
   def your_companies
     @companies = current_user.companies
     @jobs = Job.where(company: @companies).order(created_at: :desc)
+
+    @pagy, @jobs = pagy(@jobs)
   end
 
   private

@@ -36,6 +36,8 @@ class JobsController < ApplicationController
 
   def remote_jobs
     @jobs = Job.order(created_at: :desc)
+
+    @pagy, @jobs = pagy(@jobs)
   end
 
   private
