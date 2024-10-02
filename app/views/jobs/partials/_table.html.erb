@@ -19,7 +19,7 @@
         <!-- Salary Range and Location -->
         <p class="text-sm text-gray-400 mt-2">
           <span class="font-medium text-white"><%= job.resolved_salary %></span>
-          <span class="text-gray-400"> - <%= job.location %></span>
+          <span class="text-gray-400"> - <%= display_location(job.location) %></span>
         </p>
       </div>
     </div>

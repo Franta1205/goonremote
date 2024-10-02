@@ -42,7 +42,7 @@ companies.each do |company|
     Job.create!(
       title: Faker::Job.title,
       description: Faker::Lorem.paragraph(sentence_count: 5), # Generate a random job description
-      location: %w[Remote On-site Hybrid].sample, # Random location type
+      location: Locations::COUNTRIES.sample[1], # Random location type
       apply_link: Faker::Internet.url,
       currency: ["$", "€", "£"].sample, # Random currency
       salary_min: rand(30_000..50_000), # Random minimum salary
