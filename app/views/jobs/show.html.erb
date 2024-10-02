@@ -17,8 +17,38 @@
         </div>
       </div>
     </div>
-    <div class="-ml-12 -mt-12 p-12 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
-      <img class="w-[48rem] max-w-none rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem]" src="https://tailwindui.com/img/component-images/dark-project-app-screenshot.png" alt="">
+    <div class="pr-8 lg:block p-8 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 mr-4 lg:mr-8"> <!-- Adjusted Margin -->
+      <div class="flex items-center mb-4">
+        <% if @job.company.logo.present? %>
+          <%= image_tag @job.company.logo, class: "h-12 w-12 rounded-full" %>
+        <% else %>
+          <img class="h-12 w-12 rounded-full" src="https://via.placeholder.com/150" alt="Company Logo">
+      <% end %>
+        <h2 class="ml-4 text-2xl font-bold text-white"><%= @job.company.name %></h2>
+      </div>
+      <p class="text-gray-300 mb-4"><%= @job.company.description %></p>
+      <div class="mt-4">
+        <ul class="mt-2 flex space-x-4 text-gray-300">
+          <% if @job.company.linkedin.present? %>
+            <li>
+              <a href="<%= @job.company.linkedin %>" class="text-indigo-400 hover:underline" target="_blank">LinkedIn</a>
+            </li>
+          <% end %>
+          <% if @job.company.career_page.present? %>
+            <li>
+              <a href="<%= @job.company.career_page %>" class="text-indigo-400 hover:underline" target="_blank">Career Page</a>
+            </li>
+          <% end %>
+          <% if @job.company.x.present? %>
+            <li>
+              <a href="<%= @job.company.x %>" class="text-indigo-400 hover:underline" target="_blank">X (Twitter)</a>
+            </li>
+          <% end %>
+        </ul>
+        <div class="mt-4">
+          <a href="<%= @job.apply_link %>" class="block w-full px-4 py-2 text-center text-white bg-blue-500 hover:bg-blue-600 rounded-lg" target="_blank">Apply Now</a>
+        </div>
+      </div>
     </div>
     <div class="lg:col-span-2 lg:col-start-1 lg:row-start-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
       <div class="lg:pr-4">
