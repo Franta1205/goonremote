@@ -1,6 +1,6 @@
 class JobsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index remote_jobs show]
-  before_action :set_job, only: %i[show edit update]
+  before_action :set_job, only: %i[show edit update confirm_publish publish]
   before_action :set_company, only: %i[new edit create]
 
   def index
@@ -41,7 +41,15 @@ class JobsController < ApplicationController
   end
 
   def pending_jobs
+    @jobs = Job.all.where(published_at: nil)
+  end
 
+  def confirm_publish
+
+  end
+
+  def publish
+    @job.update(published_at: Time.now)
   end
 
   private

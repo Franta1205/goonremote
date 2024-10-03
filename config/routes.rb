@@ -15,6 +15,10 @@ Rails.application.routes.draw do
       get :remote_jobs
       get :pending_jobs
     end
+    member do
+      get :confirm_publish
+      post :publish
+    end
   end
 
   resources :dashboard
