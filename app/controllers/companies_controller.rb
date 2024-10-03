@@ -1,11 +1,13 @@
 class CompaniesController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[index]
+  skip_before_action :authenticate_user!, only: %i[index show]
 
   def index
     @companies = Company.order(name: :asc)
   end
 
   def show
+    @company = Company.find(params[:id])
+    @jobs = @company.jobs
   end
 
   def new

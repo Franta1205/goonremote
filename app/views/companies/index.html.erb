@@ -1,7 +1,7 @@
 
 <div class="bg-gray-900 px-6 py-24 sm:py-32 lg:px-8">
   <div class="mx-auto text-center">    
-    <h3 class="text-4xl font-bold tracking-tight text-white sm:text-6xl">
+    <h2 class="text-4xl font-bold tracking-tight text-white sm:text-6xl">
       Discover Top Remote <span class="text-blue-500">Go</span> Companies Hiring Now
     </h2>
     <div class="mx-auto max-w-2xl text-center">
@@ -14,7 +14,7 @@
 
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 p-4">
   <% @companies.each do |company| %>
-    <div class="cursor-pointer bg-gray-800 rounded-lg shadow-md p-4 flex flex-col items-center hover:bg-gray-700 transition-colors duration-300">
+    <%= link_to company_path(company), class: "cursor-pointer bg-gray-800 rounded-lg shadow-md p-4 flex flex-col items-center hover:bg-gray-700 transition-colors duration-300" do %>
         <% if company.logo.present? %>
           <%= image_tag company.logo, class:"h-16 w-16 rounded-full mb-4" %>
         <% else %>
@@ -22,7 +22,7 @@
         <% end %>
     <h3 class="text-lg font-semibold text-white mb-2"><%= company.name %></h3>
     <p class="text-sm text-gray-300 text-center"><%= company.shorten_description %></p>
-  </div>
+  <% end %>
 <% end %>
 </div>
 
