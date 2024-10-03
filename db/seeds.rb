@@ -21,6 +21,12 @@ users = []
   )
 end
 
+users << User.create!(
+  email: "admin@gmail.com",
+  password: "password",
+  admin: true
+)
+
 # Create dummy companies associated with random users
 companies = []
 30.times do
