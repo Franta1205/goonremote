@@ -13,8 +13,11 @@ Rails.application.routes.draw do
   resources :jobs do
     collection do
       get :remote_jobs
+      get :pending_jobs
     end
   end
+
+  resources :dashboard
 
   authenticated :user do
     get "settings", to: "users#settings", as: :user_settings

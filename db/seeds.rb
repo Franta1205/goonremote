@@ -21,7 +21,7 @@ users = []
   )
 end
 
-users << User.create!(
+User.create!(
   email: "admin@gmail.com",
   password: "password",
   admin: true

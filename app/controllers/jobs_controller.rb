@@ -40,6 +40,10 @@ class JobsController < ApplicationController
     @pagy, @jobs = pagy(@jobs)
   end
 
+  def pending_jobs
+
+  end
+
   private
 
   def job_params
