@@ -4,7 +4,7 @@ class JobsController < ApplicationController
   before_action :set_company, only: %i[new edit create]
 
   def index
-    @jobs = Job.all.order(created_at: :desc)
+    @jobs = Job.active.order(created_at: :desc)
 
     @pagy, @jobs = pagy(@jobs)
   end
@@ -39,7 +39,7 @@ class JobsController < ApplicationController
   end
 
   def remote_jobs
-    @jobs = Job.order(created_at: :desc)
+    @jobs = Job.active.order(created_at: :desc)
 
     @pagy, @jobs = pagy(@jobs)
   end

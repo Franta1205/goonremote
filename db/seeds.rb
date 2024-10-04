@@ -45,7 +45,7 @@ end
 # Seed jobs for the companies
 companies.each do |company|
   rand(7..10).times do # Create 3 to 7 jobs per company
-    Job.create!(
+    job = Job.create!(
       title: Faker::Job.title,
       description: Faker::Lorem.paragraph(sentence_count: 5), # Generate a random job description
       location: Locations::COUNTRIES.sample[1], # Random location type
@@ -59,6 +59,15 @@ companies.each do |company|
       created_at: rand(30.days).seconds.ago,
       updated_at: Time.now
     )
+
+    case rand(3)
+    when 0
+      job.activate!
+    when 1
+      job.reject!
+    when 2
+      job.inactiavte!
+    end
   end
 end
 

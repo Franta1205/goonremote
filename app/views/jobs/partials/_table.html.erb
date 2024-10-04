@@ -25,7 +25,11 @@
     </div>
     <!-- Date Posted -->
     <div class="text-base text-gray-400 sm:text-sm flex-shrink-0">
-      Posted on: <span class="font-medium text-gray-200"><%= job.created_at.strftime("%B %d") %></span>
+      <% if job.published_at %>
+        Posted on: <span class="font-medium text-gray-200"><%= job.created_at.strftime("%B %d") %></span>
+      <% else %>
+        Not active
+    <% end %>
     </div>
   </div>
 <% end %>
