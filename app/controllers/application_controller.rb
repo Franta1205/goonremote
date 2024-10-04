@@ -16,4 +16,10 @@ class ApplicationController < ActionController::Base
   def devise_mapping
     @devise_mapping ||= Devise.mappings[:user]
   end
+
+  private
+
+  def complain
+    redirect_to root_path, alert: "You are not authorized to acces this page"
+  end
 end
