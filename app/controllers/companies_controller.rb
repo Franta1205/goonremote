@@ -17,6 +17,7 @@ class CompaniesController < ApplicationController
   def create
     @company = Company.create(company_params)
     @company.user_id = current_user.id
+    authorize! @company
     if @company.save
       redirect_to your_companies_companies_path, notice: "Company was successfully created."
     else
@@ -26,10 +27,12 @@ class CompaniesController < ApplicationController
 
   def edit
     @company = Company.find(params[:id])
+    authorize! @company
   end
 
   def update
     @company = Company.find(params[:id])
+    authorize! @company
     if @company.update(company_params)
       redirect_to your_companies_companies_path, notice: "Company was successfully updated."
     else
