@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
   include Pagy::Backend
+  include ActionPolicy::Controller
+
   before_action :authenticate_user!
   helper_method :resource_name, :resource, :devise_mapping
 

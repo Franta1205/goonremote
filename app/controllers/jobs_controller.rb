@@ -19,11 +19,13 @@ class JobsController < ApplicationController
 
   def edit
     @job = Job.find(params[:id])
+    authorize! @job
   end
 
   def create
     @job = Job.new(job_params)
     @job.company = @company
+    authorize! @job
     if @job.save
       redirect_to @job, notice: "Job was succesfully created."
     else
@@ -32,6 +34,8 @@ class JobsController < ApplicationController
   end
 
   def update
+    @job = Job.find(params[:id])
+    authorize! @job
   end
 
   def remote_jobs
@@ -41,14 +45,16 @@ class JobsController < ApplicationController
   end
 
   def pending_jobs
+    authorize!
     @jobs = Job.all.where(published_at: nil)
   end
 
   def confirm_publish
-
+    authorize!
   end
 
   def publish
+    authorize!
     @job.update(published_at: Time.now)
   end
 

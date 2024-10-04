@@ -24,5 +24,4 @@ module ApplicationHelper
 
     content_tag(:div, nav, class: "mt-6 pb-8") # Wrap nav in a div for margin
   end
-
 end
