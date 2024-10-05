@@ -7,7 +7,7 @@ class CompanyPolicy < ApplicationPolicy
     create?
   end
 
-  def update
+  def update?
     create?
   end
 end

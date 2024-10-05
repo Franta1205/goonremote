@@ -24,6 +24,10 @@ class Job < ApplicationRecord
     end
   end
 
+  def can_be_edited?(user:)
+    job_owner?(user:) && inactive? || rejected?
+  end
+
   def job_owner?(user:)
     company.user == user
   end
