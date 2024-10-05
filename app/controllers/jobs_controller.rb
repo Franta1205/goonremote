@@ -1,6 +1,6 @@
 class JobsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index remote_jobs show]
-  before_action :set_job, only: %i[show edit update confirm_publish publish]
+  before_action :set_job, only: %i[show edit update publish]
   before_action :set_company, only: %i[new create]
 
   def index
@@ -51,15 +51,18 @@ class JobsController < ApplicationController
     @pagy, @jobs = pagy(@jobs)
   end
 
-  def confirm_publish
-    authorize!
-  end
-
   def publish
     authorize!
     unless @job.active?
       @job.update(published_at: Time.now)
     end
+  end
+
+  def your_job_listings
+    @companies = current_user.companies
+    @jobs = Job.where(company: @companies).order(created_at: :desc)
+
+    @pagy, @jobs = pagy(@jobs)
   end
 
   private

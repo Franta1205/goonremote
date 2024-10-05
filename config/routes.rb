@@ -13,9 +13,9 @@ Rails.application.routes.draw do
   resources :jobs do
     collection do
       get :remote_jobs
+      get :your_job_listings
     end
     member do
-      get :confirm_publish
       post :publish
     end
   end
