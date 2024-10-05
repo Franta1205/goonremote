@@ -5,13 +5,12 @@ class Job < ApplicationRecord
   validates :description, presence: {message: "can't be blank"}
 
   # Scope to fetch only active jobs (approved within the last month and not rejected)
-  scope :active, -> { where("published_at IS NOT NULL AND published_at >= ? AND rejected_at IS NULL", 1.month.ago) }
+  scope :active, -> { where("published_at IS NOT NULL AND published_at >= ?", 1.month.ago) }
 
   # Scope to fetch inactive jobs (older than a month, or not approved, excluding rejected jobs)
-  scope :inactive, -> { where("published_at IS NULL OR published_at < ?", 1.month.ago).where(rejected_at: nil) }
+  scope :inactive, -> { where("published_at < ?", 1.month.ago) }
 
-  # Scope to fetch rejected jobs
-  scope :rejected, -> { where.not(rejected_at: nil) }
+  scope :draft, -> { where("published_at IS NULL") }
 
   def resolved_salary
     rounded_min = salary_min.present? ? (salary_min / 1000).round : nil
@@ -24,10 +23,6 @@ class Job < ApplicationRecord
     end
   end
 
-  def can_be_edited?(user:)
-    job_owner?(user:) && inactive? || rejected?
-  end
-
   def job_owner?(user:)
     company.user == user
   end
@@ -36,23 +31,15 @@ class Job < ApplicationRecord
     published_at.present? && published_at >= 1.month.ago
   end
 
-  def inactive?
-    !active? && !rejected?
+  def draft?
+    !published_at.present?
   end
 
-  def rejected?
-    rejected_at.present?
+  def inactive?
+    published_at.present? && published_at <= 1.month.ago
   end
 
   def activate!
-    update(published_at: Time.now, rejected_at: nil)
-  end
-
-  def reject!
-    update(rejected_at: Time.now)
-  end
-
-  def inactiavte!
-    update(rejected_at: nil, published_at: nil)
+    update(published_at: Time.now)
   end
 end

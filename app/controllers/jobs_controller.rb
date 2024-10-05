@@ -31,6 +31,7 @@ class JobsController < ApplicationController
 
   def edit
     @job = Job.find(params[:id])
+    @company = @job.company
     authorize! @job
   end
 
@@ -48,11 +49,6 @@ class JobsController < ApplicationController
     @jobs = Job.active.order(created_at: :desc)
 
     @pagy, @jobs = pagy(@jobs)
-  end
-
-  def pending_jobs
-    authorize!
-    @jobs = Job.all.where(published_at: nil)
   end
 
   def confirm_publish

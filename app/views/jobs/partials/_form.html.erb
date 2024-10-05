@@ -11,9 +11,7 @@
     </div>
   <% end %>
 
-  <% if @job.new_record? %>
-    <%= hidden_field_tag :company_id, @company.id %>
-  <% end %>
+  <%= hidden_field_tag :company_id, @company.id %>
 
   <div class="space-y-12">
     <div class="border-b border-white/10 pb-12">

@@ -25,13 +25,7 @@
     </div>
     <!-- Date Posted -->
     <div class="text-base text-gray-400 sm:text-sm flex-shrink-0">
-      <% if job.active? %>
-        Posted on: <span class="font-medium text-gray-200"><%= job.created_at.strftime("%B %d") %></span>
-      <% elsif job.inactive? %>
-        Not active
-      <% elsif job.rejected? %>
-        <span class="font-medium" style="color: #e53e3e">Rejected</span>
-      <% end %>
+      Posted on: <span class="font-medium text-gray-200"><%= job.created_at.strftime("%B %d") %></span>
     </div>
   </div>
 <% end %>
