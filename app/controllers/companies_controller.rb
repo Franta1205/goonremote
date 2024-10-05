@@ -7,7 +7,7 @@ class CompaniesController < ApplicationController
 
   def show
     @company = Company.find(params[:id])
-    @jobs = @company.jobs
+    @jobs = @company.jobs.active.order(created_at: :desc).or(@company.jobs.inactive.order(created_at: :desc))
   end
 
   def new

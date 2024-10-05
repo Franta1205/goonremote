@@ -8,6 +8,12 @@ class JobPolicy < ApplicationPolicy
   def edit?
     return true if admin?
 
+    owner? && record.rejected? || record.inactive?
+  end
+
+  def show?
+    return true if record.active?
+
     owner?
   end
 

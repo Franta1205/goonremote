@@ -13,23 +13,25 @@
       <!-- Title, company, salary, and location -->
       <div class="flex-grow">
         <!-- Job Title -->
-        <h3 class="text-xl font-semibold text-white break-words"><%= job.title %></h3>
+        <h3 class="text-xl font-semibold <%= job.active? ? 'text-white' : 'text-gray-500' %> break-words"><%= job.title %></h3>
         <!-- Company Name -->
-        <p class="text-sm text-gray-300"><%= job.company.name %></p>
+        <p class="text-sm <%= job.active? ? 'text-gray-300' : 'text-gray-500' %>"><%= job.company.name %></p>
         <!-- Salary Range and Location -->
         <p class="text-sm text-gray-400 mt-2">
-          <span class="font-medium text-white"><%= job.resolved_salary %></span>
+          <span class="font-medium <%= job.active? ? 'text-white' : 'text-gray-500' %>"><%= job.resolved_salary %></span>
           <span class="text-gray-400"> - <%= display_location(job.location) %></span>
         </p>
       </div>
     </div>
     <!-- Date Posted -->
     <div class="text-base text-gray-400 sm:text-sm flex-shrink-0">
-      <% if job.published_at %>
+      <% if job.active? %>
         Posted on: <span class="font-medium text-gray-200"><%= job.created_at.strftime("%B %d") %></span>
-      <% else %>
+      <% elsif job.inactive? %>
         Not active
-    <% end %>
+      <% elsif job.rejected? %>
+        <span class="font-medium" style="color: #e53e3e">Rejected</span>
+      <% end %>
     </div>
   </div>
 <% end %>

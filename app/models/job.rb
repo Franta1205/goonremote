@@ -29,7 +29,7 @@ class Job < ApplicationRecord
   end
 
   def active?
-    published_at.present? && approved_at.present? && approved_at >= 1.month.ago
+    published_at.present? && published_at >= 1.month.ago
   end
 
   def inactive?

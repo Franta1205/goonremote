@@ -10,9 +10,10 @@
       </ul>
     </div>
   <% end %>
-  
-  <%= hidden_field_tag :company_id, @company.id %>
 
+  <% if @job.new_record? %>
+    <%= hidden_field_tag :company_id, @company.id %>
+  <% end %>
 
   <div class="space-y-12">
     <div class="border-b border-white/10 pb-12">

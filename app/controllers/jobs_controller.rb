@@ -1,7 +1,7 @@
 class JobsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index remote_jobs show]
   before_action :set_job, only: %i[show edit update confirm_publish publish]
-  before_action :set_company, only: %i[new edit create]
+  before_action :set_company, only: %i[new create]
 
   def index
     @jobs = Job.active.order(created_at: :desc)
@@ -10,16 +10,12 @@ class JobsController < ApplicationController
   end
 
   def show
+    authorize! @job
   end
 
   def new
     redirect_to new_company_path unless current_user.companies.present?
     @job = Job.new
-  end
-
-  def edit
-    @job = Job.find(params[:id])
-    authorize! @job
   end
 
   def create
@@ -33,9 +29,19 @@ class JobsController < ApplicationController
     end
   end
 
+  def edit
+    @job = Job.find(params[:id])
+    authorize! @job
+  end
+
   def update
     @job = Job.find(params[:id])
     authorize! @job
+    if @job.update(job_params)
+      redirect_to your_companies_companies_path, notice: "Job was successfully updated."
+    else
+      render :edit
+    end
   end
 
   def remote_jobs
@@ -55,7 +61,9 @@ class JobsController < ApplicationController
 
   def publish
     authorize!
-    @job.update(published_at: Time.now)
+    unless @job.active?
+      @job.update(published_at: Time.now)
+    end
   end
 
   private
