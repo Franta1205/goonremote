@@ -10,7 +10,6 @@ class JobsController < ApplicationController
   end
 
   def show
-    authorize! @job
   end
 
   def new
