@@ -28,7 +28,7 @@
       <% if job.active? %>
         Posted on: <span class="font-medium text-gray-200"><%= job.published_at.strftime("%B %d") %></span>
       <% elsif job.inactive? %>
-        In Active
+        InActive
       <% elsif job.draft? %>
         Draft
       <% end %>

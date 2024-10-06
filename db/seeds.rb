@@ -45,7 +45,7 @@ end
 # Seed jobs for the companies
 companies.each do |company|
   rand(7..10).times do # Create 3 to 7 jobs per company
-    job = Job.create!(
+    Job.create!(
       title: Faker::Job.title,
       description: Faker::Lorem.paragraph(sentence_count: 5), # Generate a random job description
       location: Locations::COUNTRIES.sample[1], # Random location type
@@ -57,17 +57,11 @@ companies.each do |company|
       experience: %w[junior mid-level senior].sample, # Random experience level
       company:, # Associate job with company
       created_at: rand(30.days).seconds.ago,
-      updated_at: Time.now
+      updated_at: Time.now,
+      published_at: [rand(Time.now.beginning_of_month..Time.now), # Random date this month
+                    rand(1.month.ago.beginning_of_month..1.month.ago.end_of_month), # Random date last month
+                    nil].sample
     )
-
-    case rand(3)
-    when 0
-      job.activate!
-    when 1
-      job.reject!
-    when 2
-      job.inactiavte!
-    end
   end
 end
 
