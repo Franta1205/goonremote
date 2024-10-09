@@ -1,0 +1,28 @@
+name: Lint and Fix with StandardRB
+
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  lint_and_fix:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1.2'
+
+      - name: Install dependencies
+        run: bundle install
+
+      - name: Run StandardRB and Fix
+        run: bundle exec standardrb --fix
