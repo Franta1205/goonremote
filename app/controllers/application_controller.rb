@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def complain
-    redirect_to root_path, alert: "You are not authorized to acces this page"
+  def complain(message: "You are not authorized to acces this page")
+    redirect_to root_path, alert: message
   end
 end

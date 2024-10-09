@@ -10,6 +10,7 @@ class JobsController < ApplicationController
   end
 
   def show
+    complain(message: "Listing is no longer active") unless @job.active? || @job.owner?(user: current_user)
   end
 
   def new

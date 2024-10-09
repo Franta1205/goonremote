@@ -23,7 +23,7 @@ class Job < ApplicationRecord
     end
   end
 
-  def job_owner?(user:)
+  def owner?(user:)
     company.user == user
   end
 
