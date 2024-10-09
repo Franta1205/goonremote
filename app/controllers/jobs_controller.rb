@@ -46,6 +46,7 @@ class JobsController < ApplicationController
   end
 
   def destroy
+    authorize! @job
     if @job.destroy
       redirect_to your_companies_companies_path, notice: "Job was succesfully deleted."
     else

@@ -42,4 +42,14 @@ class Job < ApplicationRecord
   def activate!
     update(published_at: Time.now)
   end
+
+  def status
+    if active?
+      "Active"
+    elsif draft?
+      "Draft"
+    elsif inactive?
+      "Inactive"
+    end
+  end
 end

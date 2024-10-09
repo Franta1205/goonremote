@@ -21,6 +21,10 @@ class JobPolicy < ApplicationPolicy
     edit?
   end
 
+  def destroy?
+    !record.active? && owner?
+  end
+
   private
 
   def owner?

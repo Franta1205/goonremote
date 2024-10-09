@@ -11,51 +11,100 @@
     <tr>
       <th scope="col" class="py-2 pl-4 pr-8 font-semibold sm:pl-6 lg:pl-8">Company</th>
       <th scope="col" class="hidden py-2 pl-0 pr-8 font-semibold sm:table-cell">Job</th>
+      <th scope="col" class="hidden py-2 pl-0 pr-8 font-semibold sm:table-cell">Status</th>
+      <th scope="col" class="hidden py-2 pl-0 pr-8 font-semibold sm:table-cell">Published At</th>
       <th scope="col" class="hidden py-2 pl-0 pr-8 font-semibold md:table-cell lg:pr-20"></th>
-      <th scope="col" class="hidden py-2 pl-0 pr-4 text-right font-semibold sm:table-cell sm:pr-6 lg:pr-8"></th>
-      <th scope="col" class="hidden py-2 pl-0 pr-4 text-right font-semibold sm:table-cell sm:pr-6 lg:pr-8"></th>
     </tr>
     </thead>
     <tbody class="divide-y divide-white/5">
     <% @jobs.each do |job| %>
-    <tr>
-      <td class="py-4 pl-4 pr-8 sm:pl-6 lg:pl-8">
-        <div class="flex items-center gap-x-4">
-          <% if job.company.logo.present? %>
-            <%= image_tag job.company.logo, class: "h-8 w-8 rounded-full bg-gray-800" %>
-        <% else %>
-            <img src="https://via.placeholder.com/64" alt="" class="h-8 w-8 rounded-full bg-gray-800">
-        <% end %>
-          <div class="truncate text-sm font-medium leading-6 text-white"><%= job.company.name %></div>
-        </div>
-      </td>
-      <td class="hidden py-4 pl-0 pr-4 sm:table-cell sm:pr-8">
-        <div class="flex gap-x-3">
-          <div class="truncate text-sm font-medium leading-6 text-white"><%= job.title %></div>
-        </div>
-      </td>
-      <td class="hidden py-4 pl-0 pr-8 text-sm leading-6 text-gray-400 md:table-cell lg:pr-20">
-        <%= link_to "Edit", edit_job_path(job) %>
-      </td>
-      <td class="hidden py-4 pl-0 pr-4 text-right text-sm leading-6 text-white sm:table-cell sm:pr-6 lg:pr-8">
-        <% if job.active? %>
-          <span>Active</span>
-        <% else %>
-          <%= link_to "Publish", "#", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
-      <% end %>
-      </td>
-      <td>
-        <% unless job.active? %>
-          <%= button_to 'Delete',
-                        job_path(job),
-                        data: { confirm: 'Are you sure?' },
-                        method: :delete,
-                        style: 'background-color: red; color: white; font-weight: bold; padding: 10px 20px; border-radius: 5px; text-decoration: none;' %>
+      <tr>
+        <td class="py-4 pl-4 pr-8 sm:pl-6 lg:pl-8">
+          <div class="flex items-center gap-x-4">
+            <% if job.company.logo.present? %>
+              <%= image_tag job.company.logo, class: "h-8 w-8 rounded-full bg-gray-800" %>
+            <% else %>
+              <img src="https://via.placeholder.com/64" alt="" class="h-8 w-8 rounded-full bg-gray-800">
+            <% end %>
+            <div class="truncate text-sm font-medium leading-6 text-white"><%= job.company.name %></div>
+          </div>
+        </td>
+        <td class="hidden py-4 pl-0 pr-4 sm:table-cell sm:pr-8">
+          <div class="flex gap-x-3">
+            <div class="truncate text-sm font-medium leading-6 text-white"><%= job.title %></div>
+          </div>
+        </td>
+        <td class="hidden py-4 pl-0 pr-4 sm:table-cell sm:pr-8">
+          <div class="flex gap-x-3">
+            <div class="truncate text-sm font-medium leading-6 text-white"><%= job.status %></div>
+          </div>
+        </td>
+        <td class="hidden py-4 pl-0 pr-4 sm:table-cell sm:pr-8">
+          <div class="flex gap-x-3">
+            <div class="truncate text-sm font-medium leading-6 text-white"><%= job.published_at&.strftime("%B %d") %></div>
+          </div>
+        </td>
+        <td class="hidden py-4 pl-0 pr-8 text-sm leading-6 text-gray-400 md:table-cell lg:pr-20">
+          <div class="relative inline-block text-left">
+            <div>
+              <button type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-gray-800 text-sm font-medium text-white hover:bg-gray-700 focus:outline-none menu-button" id="menu-button-<%= job.id %>">
+                ⋮
+              </button>
+            </div>
 
-      <% end %>
-      </td>
-    </tr>
+            <!-- Dropdown menu -->
+            <div class="hidden bg-gray-800 absolute right-0 z-10 mt-2 w-56 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 dropdown-menu-<%= job.id %>" role="menu" aria-orientation="vertical" aria-labelledby="menu-button-<%= job.id %>">
+              <div class="py-1" role="none">
+                <%= link_to "Edit", edit_job_path(job), class: "hover:bg-gray-700 hover:text-white block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+                <% unless job.active? %>
+                  <%= link_to "Publish", "#", class: "hover:bg-gray-700 hover:text-white block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+                <% end %>
+                <% unless job.active? %>
+                  <%= button_to 'Delete',
+                                job_path(job),
+                                data: { confirm: 'Are you sure?' },
+                                method: :delete,
+                                class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100",
+                                style: 'width: 100%; text-align: left;' %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
     <% end %>
     </tbody>
   </table>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const menuButtons = document.querySelectorAll("[id^='menu-button']");
+
+        menuButtons.forEach(button => {
+            button.addEventListener("click", function(event) {
+                event.stopPropagation(); // Prevent the click from bubbling up to the document
+                const dropdownMenu = document.querySelector(`.dropdown-menu-${this.id.split('-')[2]}`);
+                dropdownMenu.classList.toggle("hidden"); // Toggle visibility of the dropdown menu
+            });
+        });
+
+        // Close the dropdown when clicking anywhere else in the document
+        document.addEventListener("click", function(event) {
+            console.log("clicked")
+            const dropdowns = document.querySelectorAll("[class^='dropdown-menu-']");
+            dropdowns.forEach(dropdown => {
+                // Check if the clicked target is not the dropdown menu or a button
+                if (!dropdown.classList.contains("hidden") && !event.target.matches("[id^='menu-button']") && !dropdown.contains(event.target)) {
+                    dropdown.classList.add("hidden"); // Hide the dropdown if it's currently visible
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+
+
