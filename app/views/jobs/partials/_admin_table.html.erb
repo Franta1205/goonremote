@@ -13,6 +13,7 @@
       <th scope="col" class="hidden py-2 pl-0 pr-8 font-semibold sm:table-cell">Job</th>
       <th scope="col" class="hidden py-2 pl-0 pr-8 font-semibold md:table-cell lg:pr-20"></th>
       <th scope="col" class="hidden py-2 pl-0 pr-4 text-right font-semibold sm:table-cell sm:pr-6 lg:pr-8"></th>
+      <th scope="col" class="hidden py-2 pl-0 pr-4 text-right font-semibold sm:table-cell sm:pr-6 lg:pr-8"></th>
     </tr>
     </thead>
     <tbody class="divide-y divide-white/5">
@@ -41,6 +42,16 @@
           <span>Active</span>
         <% else %>
           <%= link_to "Publish", "#", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+      <% end %>
+      </td>
+      <td>
+        <% unless job.active? %>
+          <%= button_to 'Delete',
+                        job_path(job),
+                        data: { confirm: 'Are you sure?' },
+                        method: :delete,
+                        style: 'background-color: red; color: white; font-weight: bold; padding: 10px 20px; border-radius: 5px; text-decoration: none;' %>
+
       <% end %>
       </td>
     </tr>

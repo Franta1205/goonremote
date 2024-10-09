@@ -1,6 +1,6 @@
 class JobsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index remote_jobs show]
-  before_action :set_job, only: %i[show edit update publish]
+  before_action :set_job, only: %i[show edit update publish destroy]
   before_action :set_company, only: %i[new create]
 
   def index
@@ -42,6 +42,14 @@ class JobsController < ApplicationController
       redirect_to your_companies_companies_path, notice: "Job was successfully updated."
     else
       render :edit
+    end
+  end
+
+  def destroy
+    if @job.destroy
+      redirect_to your_companies_companies_path, notice: "Job was succesfully deleted."
+    else
+      redirect_to your_companies_companies_path, alert: "There was an issue with deleting a job."
     end
   end
 
