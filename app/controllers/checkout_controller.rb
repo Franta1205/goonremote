@@ -1,5 +1,6 @@
 class CheckoutController < ApplicationController
   def index
+    job = Job.find(params[:job_id])
     session = Stripe::Checkout::Session.create({
       payment_method_types: ["card"],
       line_items: [{
@@ -9,12 +10,12 @@ class CheckoutController < ApplicationController
             name: "Job Posting",
             description: "Publish your job on our platform"
           },
-          unit_amount: 2000
+          unit_amount: 20000000
         },
         quantity: 1
       }],
       mode: "payment",
-      success_url: root_url,
+      success_url: publish_job_url(job),
       cancel_url: root_url
     })
 

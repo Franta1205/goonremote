@@ -64,7 +64,7 @@ class JobsController < ApplicationController
     authorize! @job
     unless @job.active?
       @job.update(published_at: Time.now)
-      redirect_to checkout_index_path
+      redirect_to your_companies_companies_path, notice: "Your Job Listing is published."
     end
   end
 
