@@ -16,11 +16,13 @@ Rails.application.routes.draw do
       get :your_job_listings
     end
     member do
-      post :publish
+      get :publish
     end
   end
 
   resources :dashboard
+
+  resources :checkout
 
   authenticated :user do
     get "settings", to: "users#settings", as: :user_settings

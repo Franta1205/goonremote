@@ -59,8 +59,8 @@ companies.each do |company|
       created_at: rand(30.days).seconds.ago,
       updated_at: Time.now,
       published_at: [rand(Time.now.beginning_of_month..Time.now), # Random date this month
-                    rand(1.month.ago.beginning_of_month..1.month.ago.end_of_month), # Random date last month
-                    nil].sample
+        rand(1.month.ago.beginning_of_month..1.month.ago.end_of_month), # Random date last month
+        nil].sample
     )
   end
 end

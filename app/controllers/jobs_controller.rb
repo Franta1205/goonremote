@@ -61,9 +61,10 @@ class JobsController < ApplicationController
   end
 
   def publish
-    authorize!
+    authorize! @job
     unless @job.active?
       @job.update(published_at: Time.now)
+      redirect_to checkout_index_path
     end
   end
 

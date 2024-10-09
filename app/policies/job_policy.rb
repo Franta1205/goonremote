@@ -25,6 +25,10 @@ class JobPolicy < ApplicationPolicy
     !record.active? && owner?
   end
 
+  def publish?
+    !record.active? && owner?
+  end
+
   private
 
   def owner?
