@@ -16,6 +16,7 @@ class JobsController < ApplicationController
   def new
     redirect_to new_company_path unless current_user.companies.present?
     @job = Job.new
+    @button_text = "Save and Publish"
   end
 
   def create
@@ -23,7 +24,8 @@ class JobsController < ApplicationController
     @job.company = @company
     authorize! @job
     if @job.save
-      redirect_to @job, notice: "Job was succesfully created."
+      redirect_path = params[:commit] == "Save and Publish" ? checkout_index_path(job_id: @job.id) : your_companies_companies_path
+      redirect_to redirect_path, notice: "Job was succesfully created."
     else
       render :new
     end
@@ -31,15 +33,18 @@ class JobsController < ApplicationController
 
   def edit
     @job = Job.find(params[:id])
+    @button_text = @job.status == "Acitve" ? "Save" : "Save and Publish"
     @company = @job.company
     authorize! @job
   end
 
   def update
+    puts params
     @job = Job.find(params[:id])
     authorize! @job
     if @job.update(job_params)
-      redirect_to your_companies_companies_path, notice: "Job was successfully updated."
+      redirect_path = params[:commit] == "Save and Publish" ? checkout_index_path(job_id: @job.id) : your_companies_companies_path
+      redirect_to redirect_path, notice: "Job was successfully updated."
     else
       render :edit
     end

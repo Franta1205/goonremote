@@ -119,7 +119,27 @@
   </div>
 
   <div class="mt-6 flex items-center justify-end gap-x-6">
-    <%= f.submit "Save", class:"rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"%>
+    <% unless @job.active? %>
+  <div class="bg-gray-800 p-4 rounded-md shadow-lg">
+      <h3 class="text-lg font-semibold text-white">Save posting</h3>
+      <p class="text-sm text-gray-400">This posting <strong>will not be published</strong>.</p>
+      <p class="text-sm text-gray-400">Price: <strong>_</strong></p>
+      <div class="mt-4">
+        <%= f.submit "Save as Draft", class:"rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"%>
+      </div>
+    </div>
+
+    <div class="bg-gray-800 p-4 rounded-md shadow-lg">
+      <h3 class="text-lg font-semibold text-white">Publish posting</h3>
+      <p class="text-sm text-gray-400">This job will be published for <strong>30 days</strong>.</p>
+      <p class="text-sm text-gray-400">Price: <strong>$99</strong></p>
+      <div class="mt-4">
+        <%= f.submit @button_text, class:"rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"%>
+      </div>
+    </div>
+    <% else %>
+      <%= f.submit "Save", class:"rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"%>
+  <% end %>
   </div>
 <% end %>
 
