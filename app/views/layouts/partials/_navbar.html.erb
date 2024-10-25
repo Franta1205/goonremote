@@ -17,8 +17,10 @@
       </button>
     </div>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end space-x-8">
-      <%= link_to "Companies", companies_path, class: "font-semibold leading-6 text-white" %>
-      <%= link_to "Remote Jobs", remote_jobs_jobs_path, class: "font-semibold leading-6 text-white" %>
+      <%# <%= link_to "Companies", companies_path, class: "font-semibold leading-6 text-white" %>
+      <% unless current_user&.admin %>
+        <%= link_to "Remote Jobs", remote_jobs_jobs_path, class: "font-semibold leading-6 text-white" %>
+      <% end %>
       <% if current_user %>
         <%= render "layouts/partials/user_dropdown" %>
       <% else %>
@@ -46,7 +48,7 @@
       <div class="mt-6 flow-root">
         <div class="-my-6 divide-y divide-gray-500/25">
           <div class="space-y-2 py-6">
-            <%= link_to "Companies", companies_path, class: "-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800" %>
+            <%# <%= link_to "Companies", companies_path, class: "-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800" %>
             <%= link_to "Remote Jobs", remote_jobs_jobs_path, class: "-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800" %>
             <% if current_user %> 
               <%= link_to "Your Companies", your_companies_companies_path, class: "-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800" %>
