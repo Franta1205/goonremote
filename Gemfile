@@ -86,3 +86,5 @@ gem "pagy", "~> 9.0"
 gem "action_policy", "~> 0.7.1"
 
 gem "stripe", "~> 13.0"
+
+gem 'sqlite3', '~> 1.4'

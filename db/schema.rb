@@ -11,9 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2024_10_09_125540) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -55,7 +52,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_09_125540) do
   create_table "companies", force: :cascade do |t|
     t.string "name", null: false
     t.string "website_url"
-    t.bigint "user_id", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "linkedin"
@@ -76,7 +73,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_09_125540) do
     t.string "salary_period", default: "Yearly"
     t.string "employment_type", default: "full_time"
     t.string "experience"
-    t.bigint "company_id", null: false
+    t.integer "company_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "published_at"
