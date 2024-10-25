@@ -10,7 +10,7 @@ class CheckoutController < ApplicationController
             name: "Job Posting",
             description: "Publish your job on our platform"
           },
-          unit_amount: 20000000
+          unit_amount: 9900
         },
         quantity: 1
       }],
